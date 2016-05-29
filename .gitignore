@@ -1,0 +1,6 @@
+*.bin
+*.elf
+*.dis
+*.o
+*.sublime-project
+*.sublime-workspace
