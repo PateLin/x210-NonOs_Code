@@ -10,7 +10,7 @@ LD = arm-none-linux-gnueabi-ld
 OC = arm-none-linux-gnueabi-objcopy
 OD = arm-none-linux-gnueabi-objdump
 
-X210.bin:start.o
+X210.bin:start.o led_s.o
 	$(LD) -Ttext 0x0 -o start.elf $^
 	$(OC) -O binary start.elf start.bin
 	$(OD) -D start.elf >start.elf.dis
