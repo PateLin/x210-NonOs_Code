@@ -10,7 +10,7 @@ LD = arm-none-linux-gnueabi-ld
 OC = arm-none-linux-gnueabi-objcopy
 OD = arm-none-linux-gnueabi-objdump
 
-X210.bin:start.o led_s.o
+X210.bin:start.o main.o led.o
 	$(LD) -Ttext 0x0 -o start.elf $^
 	$(OC) -O binary start.elf start.bin
 	$(OD) -D start.elf >start.elf.dis
@@ -19,7 +19,8 @@ X210.bin:start.o led_s.o
 	$(CC) -o $@ $< -c
 
 %.o : %.c
-	$(CC) -o $@ $< -c
+	#$(CC) -o $@ $< -c
+	$(CC) -nostdlib -o $@ $< -c
 
 clean:
 	rm *.o *.elf *.bin *.dis -f
