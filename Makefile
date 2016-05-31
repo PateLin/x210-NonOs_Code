@@ -10,17 +10,40 @@ LD = arm-none-linux-gnueabi-ld
 OC = arm-none-linux-gnueabi-objcopy
 OD = arm-none-linux-gnueabi-objdump
 
-X210.bin:start.o main.o led.o
-	$(LD) -Ttext 0x0 -o start.elf $^
-	$(OC) -O binary start.elf start.bin
-	$(OD) -D start.elf >start.elf.dis
+RM 		= rm -rf
+MKDIR 	= mkdir
 
-%.o : %.s
-	$(CC) -o $@ $< -c
+DIR_OBJS= ./objs
+DIR_EXES= ./exes
+DIRS 	= $(DIR_OBJS) $(DIR_EXES)
 
-%.o : %.c
-	#$(CC) -o $@ $< -c
+SRCS = $(wildcard *.c *.S)
+
+OBJS := $(SRCS:.c=.o)
+OBJS := $(OBJS:.S=.o)
+OBJS := $(addprefix $(DIR_OBJS)/,$(OBJS))
+
+BOOT = $(DIR_EXES)/boot
+BIN = $(BOOT).bin
+ELF = $(BOOT).elf
+DIS = $(ELF).dis
+
+all:$(DIRS) $(BIN)
+
+$(DIRS):
+	$(MKDIR) $@
+
+$(BIN):$(OBJS)
+	$(LD) -Ttext 0x0 -o $(ELF) $^
+	$(OC) -O binary $(ELF) $@
+	$(OD) -D $(ELF) > $(DIS)
+
+$(DIR_OBJS)/%.o:%.c
 	$(CC) -nostdlib -o $@ $< -c
 
+$(DIR_OBJS)/%.o:%.S
+	$(CC) -o $@ $< -c
+
+.PHONY:clean
 clean:
-	rm *.o *.elf *.bin *.dis -f
+	$(RM) *.o *.elf *.bin *.dis $(DIRS)
