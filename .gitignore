@@ -4,3 +4,13 @@
 *.o
 *.sublime-project
 *.sublime-workspace
+*.IAB
+*.IAD
+*.IMB
+*.WK3
+*.PFI
+*.PO
+*.PR
+*.IMD
+*.PRI
+*.PS
