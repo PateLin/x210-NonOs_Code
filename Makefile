@@ -34,7 +34,7 @@ $(DIRS):
 	$(MKDIR) $@
 
 $(BIN):$(OBJS)
-	$(LD) -Ttext 0x0 -o $(ELF) $^
+	$(LD) -Tlink.lds -o $(ELF) $^
 	$(OC) -O binary $(ELF) $@
 	$(OD) -D $(ELF) > $(DIS)
 
