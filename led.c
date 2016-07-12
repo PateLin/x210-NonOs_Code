@@ -1,7 +1,7 @@
 /*********************************************************************************
-  *FileName		:	led.c
+  *FileName	:	led.c
   *Author		:  	PateLin
-  *Version		:  	V1.0.0
+  *Version	:  	V1.0.0
   *Date			:	2016.05.29
   *Description	:	Control the LED of X210,the step as: 
   *					1.blink all of the led 3 tiems
